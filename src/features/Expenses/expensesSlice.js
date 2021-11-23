@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchExpenses, createExpenses } from "../../app/api";
+import { fetchExpenses, createExpenses, deleteExpenses } from "../../app/api";
 
 const initialState = {
   status: "idle",
@@ -23,10 +23,18 @@ export const fetchExpensesThunk = createAsyncThunk(
   }
 );
 
-export const createExpensesThunk = createAsyncThunk(
-  "expenses/createExpenses",
+export const createExpenseThunk = createAsyncThunk(
+  "expenses/createExpense",
   async (expense) => {
     const response = await createExpenses(expense);
+    return response.data;
+  }
+);
+
+export const deleteExpenseThunk = createAsyncThunk(
+  "expenses/deleteExpense",
+  async (id) => {
+    const response = await deleteExpenses(id);
     return response.data;
   }
 );
@@ -44,8 +52,14 @@ const expensesSlice = createSlice({
         state.expenses = action.payload;
       });
 
-    builder.addCase(createExpensesThunk.fulfilled, (state, action) => {
+    builder.addCase(createExpenseThunk.fulfilled, (state, action) => {
       state.expenses.push(action.payload);
+    });
+
+    builder.addCase(deleteExpenseThunk.fulfilled, (state, action) => {
+      state.expenses = state.expenses.filter(
+        (expense) => expense.id !== action.payload
+      );
     });
   },
 });

@@ -5,8 +5,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectAllExpenses } from "./features/Expenses/expensesSlice";
 import {
   fetchExpensesThunk,
-  createExpensesThunk,
+  createExpenseThunk,
 } from "./features/Expenses/expensesSlice";
+import Expense from "./features/Expenses/Expense";
 
 function App() {
   const dispatch = useDispatch();
@@ -17,7 +18,6 @@ function App() {
     date: "2021-11-01",
     categoryId: 1,
   };
-  console.log(expenses);
 
   return (
     <BrowserRouter>
@@ -32,12 +32,12 @@ function App() {
           <button onClick={() => dispatch(fetchExpensesThunk())}>
             Fetch expenses
           </button>
-          <button onClick={() => dispatch(createExpensesThunk(newExpense))}>
+          <button onClick={() => dispatch(createExpenseThunk(newExpense))}>
             Post expense
           </button>
         </header>
         {expenses.map((expense, index) => (
-          <p key={index}>{expense?.name}</p>
+          <Expense key={index} expense={expense} />
         ))}
         <Routes>
           <Route path='/' element={<h1>Hi</h1>} />
