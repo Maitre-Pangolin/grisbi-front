@@ -16,6 +16,13 @@ export const handlers = [
     return res(ctx.status(200), ctx.json(expense));
   }),
 
+  rest.patch("/api/expenses/:id", (req, res, ctx) => {
+    const { id } = req.params;
+    const index = expenses.findIndex((expense) => expense.id === id);
+    expenses[index] = { id, ...req.body };
+    return res(ctx.status(200), ctx.json(expenses[index]));
+  }),
+
   rest.delete("/api/expenses/:id", (req, res, ctx) => {
     try {
       const { id } = req.params;
