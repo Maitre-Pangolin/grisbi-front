@@ -8,7 +8,7 @@ export const handlers = [
     return res(ctx.status(200), ctx.json(expenses));
   }),
   rest.post("/api/expenses", (req, res, ctx) => {
-    const expense = { ...req.body, id: uuidv4() };
+    const expense = { id: uuidv4(), ...req.body };
     expenses.push(expense);
     return res(ctx.status(200), ctx.json(expense));
   }),

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchExpenses } from "../../app/api";
+import { fetchExpenses, createExpenses } from "../../app/api";
 
 const initialState = {
   status: "idle",
@@ -14,11 +14,19 @@ const initialState = {
   ],
 };
 
-export const getExpenses = createAsyncThunk(
-  "expenses/getExpenses",
+export const fetchExpensesThunk = createAsyncThunk(
+  "expenses/fetchExpenses",
   async () => {
     const response = await fetchExpenses();
-    console.log("In async thunk", response);
+    //console.log("In async thunk", response);
+    return response.data;
+  }
+);
+
+export const createExpensesThunk = createAsyncThunk(
+  "expenses/createExpenses",
+  async (expense) => {
+    const response = await createExpenses(expense);
     return response.data;
   }
 );
@@ -28,13 +36,17 @@ const expensesSlice = createSlice({
   initialState,
   extraReducers: (builder) => {
     builder
-      .addCase(getExpenses.pending, (state) => {
+      .addCase(fetchExpensesThunk.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(getExpenses.fulfilled, (state, action) => {
+      .addCase(fetchExpensesThunk.fulfilled, (state, action) => {
         state.status = "idle";
         state.expenses = action.payload;
       });
+
+    builder.addCase(createExpensesThunk.fulfilled, (state, action) => {
+      state.expenses.push(action.payload);
+    });
   },
 });
 
