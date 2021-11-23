@@ -1,57 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { selectAllExpenses } from "./features/Expenses/expensesSlice";
+import { getExpenses } from "./features/Expenses/expensesSlice";
 
 function App() {
+  const dispatch = useDispatch();
+  const expenses = useSelector(selectAllExpenses);
+  console.log(expenses);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className='App'>
+        <header>
+          <Link to='/'>
+            <button>Home</button>
+          </Link>
+          <Link to='/test'>
+            <button>Test</button>
+          </Link>
+          <button onClick={() => dispatch(getExpenses())}>
+            Fetch expenses
+          </button>
+        </header>
+        {expenses.map((expense, index) => (
+          <p key={index}>{expense?.name}</p>
+        ))}
+        <Routes>
+          <Route path='/' element={<h1>Hi</h1>} />
+          <Route path='/test' element={<h1>Test</h1>} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 
