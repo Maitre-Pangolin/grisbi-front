@@ -8,6 +8,7 @@ import {
   createExpenseThunk,
 } from "./features/Expenses/expensesSlice";
 import Expense from "./features/Expenses/Expense";
+import ExpenseForm from "./components/ExpenseForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -43,6 +44,7 @@ function App() {
           <Route path='/' element={<h1>Hi</h1>} />
           <Route path='/test' element={<h1>Test</h1>} />
         </Routes>
+        <ExpenseForm />
       </div>
     </BrowserRouter>
   );
