@@ -1,0 +1,21 @@
+[
+    {"id":"c3124ffc-c5d7-466c-b787-df78e456c8ca",
+    "name": "Rent",
+    "amount": 750,
+    "date":"2021-11-01",
+    "categoryId": 1
+    },
+    {"id":"b60825c4-f5db-454f-aacd-26715a09b05c",
+        "name": "Rent",
+        "amount": 750,
+        "date":"2021-10-01",
+        "categoryId": 2
+    },
+    {"id":"4c85b979-d987-4ce5-a288-77e1087c1845",
+        "name": "Rent",
+        "amount": 750,
+        "date":"2021-10-01",
+        "categoryId": 2
+    }
+]
+
