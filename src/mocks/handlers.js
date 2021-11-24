@@ -10,6 +10,14 @@ export const handlers = [
     return res(ctx.status(200), ctx.json(expenses));
   }),
 
+  rest.get("/api/expenses/:yearMonth", (req, res, ctx) => {
+    const { yearMonth } = req.params;
+    const monthlyExpenses = expenses.filter(({ date }) => {
+      return date.slice(0, 7) === yearMonth;
+    });
+    return res(ctx.status(200), ctx.json(monthlyExpenses));
+  }),
+
   rest.post("/api/expenses", (req, res, ctx) => {
     const expense = { id: uuidv4(), ...req.body };
     expenses.push(expense);

@@ -3,19 +3,59 @@
     "name": "Rent",
     "amount": 750,
     "date":"2021-11-01",
+
     "categoryId": 1
     },
     {"id":"b60825c4-f5db-454f-aacd-26715a09b05c",
-        "name": "Rent",
-        "amount": 750,
-        "date":"2021-10-01",
+        "name": "Phone",
+        "amount": 54.25,
+        "date":"2021-11-04",
+
         "categoryId": 2
     },
     {"id":"4c85b979-d987-4ce5-a288-77e1087c1845",
         "name": "Groceries",
-        "amount": 30,
-        "date":"2021-10-01",
+        "amount": 31.56,
+        "date":"2021-11-05",
+
         "categoryId": 2
-    }
+    },
+    {"id":"4c85b979-d986-4ce5-a288-77e1087c1845",
+        "name": "Drinks",
+        "amount": 54.23,
+        "date":"2021-11-12",
+
+        "categoryId": 4
+    },
+
+
+    {"id":"c3124ffc-c5d7-466c-b787-dg78e456c8ca",
+        "name": "Rent",
+        "amount": 750,
+        "date":"2021-07-01",
+
+        "categoryId": 1
+        },
+        {"id":"b60825c4-f5db-454f-aacd-2n715a09b05c",
+            "name": "Phone",
+            "amount": 54.25,
+            "date":"2021-10-04",
+ 
+            "categoryId": 2
+        },
+        {"id":"4c85b979-d987-4ce5-a288-7741087c1845",
+            "name": "Groceries",
+            "amount": 31.56,
+            "date":"2021-10-05",
+
+            "categoryId": 2
+        },
+        {"id":"4c85b979-d986-4ct5-a288-77e1087c1845",
+            "name": "Drinks",
+            "amount": 54.23,
+            "date":"2021-09-12",
+
+            "categoryId": 4
+        }
 ]
 

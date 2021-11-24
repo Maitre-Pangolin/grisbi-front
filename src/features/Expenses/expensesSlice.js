@@ -4,10 +4,10 @@ import {
   createExpenses,
   deleteExpenses,
   updateExpenses,
+  fetchExpensesByMonth,
 } from "../../app/api";
 
 const initialState = {
-  status: "idle",
   expenses: [
     {
       id: "c3124ffc-c5d7-466c-b787-df78e456c8ca",
@@ -23,6 +23,15 @@ export const fetchExpensesThunk = createAsyncThunk(
   "expenses/fetchExpenses",
   async () => {
     const response = await fetchExpenses();
+    //console.log("In async thunk", response);
+    return response.data;
+  }
+);
+
+export const fetchExpensesByMonthThunk = createAsyncThunk(
+  "expenses/fetchExpensesByMonth",
+  async (yearMonth) => {
+    const response = await fetchExpensesByMonth(yearMonth);
     //console.log("In async thunk", response);
     return response.data;
   }
@@ -56,14 +65,13 @@ const expensesSlice = createSlice({
   name: "expenses",
   initialState,
   extraReducers: (builder) => {
-    builder
-      .addCase(fetchExpensesThunk.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(fetchExpensesThunk.fulfilled, (state, action) => {
-        state.status = "idle";
-        state.expenses = action.payload;
-      });
+    builder.addCase(fetchExpensesThunk.fulfilled, (state, action) => {
+      state.expenses = action.payload;
+    });
+
+    builder.addCase(fetchExpensesByMonthThunk.fulfilled, (state, action) => {
+      state.expenses = action.payload;
+    });
 
     builder.addCase(createExpenseThunk.fulfilled, (state, action) => {
       state.expenses.push(action.payload);
