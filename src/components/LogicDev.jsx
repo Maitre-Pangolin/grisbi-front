@@ -4,13 +4,13 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   fetchExpensesByMonthThunk,
   selectAllExpenses,
-} from "../features/Expenses/expensesSlice";
-import {
   fetchExpensesThunk,
   createExpenseThunk,
 } from "../features/Expenses/expensesSlice";
+
 import Expense from "../features/Expenses/Expense";
 import ExpenseForm from "./ExpenseForm";
+import { fetchTotalsThunk } from "../features/Totals/totalsSlice";
 
 const LogicDev = () => {
   const dispatch = useDispatch();
@@ -36,6 +36,7 @@ const LogicDev = () => {
         <button onClick={() => dispatch(fetchExpensesByMonthThunk("2021-10"))}>
           Fetch October 2021
         </button>
+        <button onClick={() => dispatch(fetchTotalsThunk())}>Log totals</button>
       </header>
       {expenses.map((expense, index) => (
         <Expense key={index} expense={expense} />

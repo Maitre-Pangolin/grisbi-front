@@ -41,4 +41,17 @@ export const handlers = [
       return res(ctx.status(500));
     }
   }),
+
+  rest.get("/api/totals", (req, res, ctx) => {
+    const totals = {};
+    expensesJson.forEach((expense) => {
+      const key = expense.date.slice(0, 7);
+      if (key in totals) {
+        totals[key] += expense.amount;
+      } else {
+        totals[key] = expense.amount;
+      }
+    });
+    return res(ctx.status(200), ctx.json(totals));
+  }),
 ];
