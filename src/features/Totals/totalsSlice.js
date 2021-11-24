@@ -22,3 +22,7 @@ const TotalsSlice = createSlice({
 export default TotalsSlice.reducer;
 
 export const selectMonthlyTotals = (state) => state.totals;
+export const selectCurrentMonthTotals = (state) => {
+  const yearMonthKey = new Date().toISOString().slice(0, 7);
+  return state.totals[yearMonthKey];
+};

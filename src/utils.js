@@ -1,6 +1,15 @@
-export const getMonthYearFromDate = (date) =>
-  new Date(date).toLocaleDateString("en-EN", {
+export const getDateStringFromDateKey = (dateKey) =>
+  new Date(dateKey).toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
     timeZone: "UTC",
   });
+
+export const getCurrentDateString = () =>
+  new Date().toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    timeZone: "UTC",
+  });
+
+export const getCurrentMonthKey = () => new Date().toISOString().slice(0, 7);

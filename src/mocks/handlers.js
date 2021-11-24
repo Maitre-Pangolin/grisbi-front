@@ -44,7 +44,7 @@ export const handlers = [
 
   rest.get("/api/totals", (req, res, ctx) => {
     const totals = {};
-    expensesJson.forEach((expense) => {
+    expenses.forEach((expense) => {
       const key = expense.date.slice(0, 7);
       if (key in totals) {
         totals[key] += expense.amount;
@@ -52,6 +52,7 @@ export const handlers = [
         totals[key] = expense.amount;
       }
     });
+    //console.log(totals);
     return res(ctx.status(200), ctx.json(totals));
   }),
 ];

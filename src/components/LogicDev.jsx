@@ -7,20 +7,26 @@ import {
   fetchExpensesThunk,
   createExpenseThunk,
 } from "../features/Expenses/expensesSlice";
-
 import Expense from "../features/Expenses/Expense";
 import ExpenseForm from "./ExpenseForm";
-import { fetchTotalsThunk } from "../features/Totals/totalsSlice";
+import {
+  fetchTotalsThunk,
+  selectCurrentMonthTotals,
+  selectMonthlyTotals,
+} from "../features/Totals/totalsSlice";
+import { getDateStringFromDateKey } from "../utils";
 
 const LogicDev = () => {
   const dispatch = useDispatch();
   const expenses = useSelector(selectAllExpenses);
   const newExpense = {
-    name: "From Post",
+    title: "From Post",
     amount: 20,
     date: "2021-11-01",
     categoryId: 1,
   };
+  const totals = useSelector(selectMonthlyTotals);
+  const currentTotal = useSelector(selectCurrentMonthTotals);
   return (
     <div>
       <header>
@@ -41,19 +47,12 @@ const LogicDev = () => {
       {expenses.map((expense, index) => (
         <Expense key={index} expense={expense} />
       ))}
-      <ExpenseForm />
-    </div>
-  );
-};
-
-export const FormYearMonth = () => {
-  const [year, setYear] = useState("");
-  const [month, setMonth] = useState("");
-
-  return (
-    <div>
-      input
-      <input type='month' name='' id='' />
+      {Object.keys(totals).map((key) => (
+        <h2 key={key}>
+          {getDateStringFromDateKey(key)}: {totals[key]}
+        </h2>
+      ))}
+      <h2>{currentTotal || "No expenses"}</h2>
     </div>
   );
 };

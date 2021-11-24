@@ -1,9 +1,54 @@
-body {
+body,html {
   margin: 0;
+  padding:0;
   font-family:  'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+}
+a{
+  text-decoration: none;
+}
+a:visited{
+  color:black
 }
 
+main{
+  padding-top: 100px;
+}
+
+
+
+header{
+  position:fixed;
+  left:0;
+  right:0;
+  padding:0 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgb(100, 148, 237);
+}
+
+.home-form-container{
+  margin:auto;
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  gap: 20px;
+}
+
+footer{
+  position:fixed;
+  color:white;
+  left:0;
+  right:0;
+  bottom:0;
+  padding:0 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgb(100, 148, 237);
+}

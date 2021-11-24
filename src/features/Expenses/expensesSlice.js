@@ -11,7 +11,7 @@ const initialState = {
   expenses: [
     {
       id: "c3124ffc-c5d7-466c-b787-df78e456c8ca",
-      name: "Test",
+      title: "Test",
       amount: 750,
       date: "2021-11-01",
       categoryId: 1,
