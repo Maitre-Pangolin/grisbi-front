@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   fetchExpensesByMonthThunk,
@@ -7,8 +6,7 @@ import {
   fetchExpensesThunk,
   createExpenseThunk,
 } from "../features/Expenses/expensesSlice";
-import Expense from "../features/Expenses/Expense";
-import ExpenseForm from "./ExpenseForm";
+import Expense from "../features/Expenses/Expense2";
 import {
   fetchTotalsThunk,
   selectCurrentMonthTotals,

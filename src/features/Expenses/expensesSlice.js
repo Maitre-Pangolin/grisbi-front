@@ -10,6 +10,7 @@ import { getMonthKeyFromDateString } from "../../utils";
 import { increaseTotal, decreaseTotal } from "../Totals/totalsSlice";
 
 const initialState = {
+  keyDate: "2021-11",
   expenses: [
     {
       id: "c3124ffc-c5d7-466c-b787-df78e456c8ca",
@@ -32,10 +33,10 @@ export const fetchExpensesThunk = createAsyncThunk(
 
 export const fetchExpensesByMonthThunk = createAsyncThunk(
   "expenses/fetchExpensesByMonth",
-  async (yearMonth) => {
-    const response = await fetchExpensesByMonth(yearMonth);
+  async (keyDate) => {
+    const response = await fetchExpensesByMonth(keyDate);
     //console.log("In async thunk", response);
-    return response.data;
+    return { data: response.data, keyDate };
   }
 );
 
@@ -52,8 +53,10 @@ export const createExpenseThunk = createAsyncThunk(
 
 export const updateExpenseThunk = createAsyncThunk(
   "expenses/updateExpense",
-  async (expense) => {
+  async (expense, thunkAPI) => {
     const response = await updateExpenses(expense);
+    const state = thunkAPI.getState();
+    console.log(state);
     return response.data;
   }
 );
@@ -61,9 +64,7 @@ export const updateExpenseThunk = createAsyncThunk(
 export const deleteExpenseThunk = createAsyncThunk(
   "expenses/deleteExpense",
   async (id, thunkAPI) => {
-    console.log("In thunk");
     const response = await deleteExpenses(id);
-    console.log(response);
     const key = getMonthKeyFromDateString(response.data.date);
     const amount = response.data.amount;
     thunkAPI.dispatch(decreaseTotal({ key, amount }));
@@ -80,12 +81,12 @@ const expensesSlice = createSlice({
     });
 
     builder.addCase(fetchExpensesByMonthThunk.fulfilled, (state, action) => {
-      state.expenses = action.payload;
+      state.keyDate = action.payload.keyDate;
+      state.expenses = action.payload.data;
     });
 
     builder.addCase(createExpenseThunk.fulfilled, (state, action) => {
       state.expenses.push(action.payload);
-      increaseTotal();
     });
 
     builder.addCase(deleteExpenseThunk.fulfilled, (state, action) => {
@@ -98,7 +99,14 @@ const expensesSlice = createSlice({
       const index = state.expenses.findIndex(
         (expense) => expense.id === action.payload.id
       );
-      state.expenses[index] = action.payload;
+      if (
+        getMonthKeyFromDateString(state.expenses[index].date) !==
+        getMonthKeyFromDateString(action.payload.date)
+      ) {
+        state.expenses.splice(index, 1);
+      } else {
+        state.expenses[index] = action.payload;
+      }
     });
   },
 });
@@ -106,3 +114,6 @@ const expensesSlice = createSlice({
 export default expensesSlice.reducer;
 
 export const selectAllExpenses = (state) => state.expenses.expenses;
+export const selectExpenseByID = (expenseID) => (state) =>
+  expenseID ? state.expenses.expenses.find(({ id }) => id === expenseID) : null;
+export const selectKeyDate = (state) => state.expenses.keyDate;

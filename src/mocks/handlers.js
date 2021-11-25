@@ -19,7 +19,7 @@ export const handlers = [
   }),
 
   rest.post("/api/expenses", (req, res, ctx) => {
-    const expense = { id: uuidv4(), ...req.body };
+    const expense = { ...req.body, id: uuidv4() };
     expenses.push(expense);
     return res(ctx.status(200), ctx.json(expense));
   }),

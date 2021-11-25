@@ -2,7 +2,7 @@ import axios from "axios";
 
 const expenses = "/api/expenses";
 const totals = "/api/totals";
-const category = "/api/category";
+//const category = "/api/category";
 
 export const fetchExpenses = () => axios.get(expenses);
 export const fetchExpensesByMonth = (yearMonth) =>

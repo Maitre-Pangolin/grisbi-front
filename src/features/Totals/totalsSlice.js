@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { fetchTotals } from "../../app/api";
+import { getCurrentMonthKey } from "../../utils";
 
 export const fetchTotalsThunk = createAsyncThunk(
   "expenses/fetchTotals",
@@ -36,8 +37,8 @@ const TotalsSlice = createSlice({
 export default TotalsSlice.reducer;
 export const { increaseTotal, decreaseTotal } = TotalsSlice.actions;
 
-export const selectMonthlyTotals = (state) => state.totals;
+export const selectMonthlyTotals = (state) => state.totals; //SHOULD RETURN AN ORDERED ARRAY OF [{dateKey,totals}]
 export const selectCurrentMonthTotals = (state) => {
-  const yearMonthKey = new Date().toISOString().slice(0, 7);
+  const yearMonthKey = getCurrentMonthKey();
   return state.totals[yearMonthKey];
 };

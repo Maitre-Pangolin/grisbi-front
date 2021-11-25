@@ -1,30 +1,50 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { deleteExpenseThunk, updateExpenseThunk } from "./expensesSlice";
+import {
+  ListItemIcon,
+  ListItemText,
+  ListItem,
+  IconButton,
+} from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import { deleteExpenseThunk } from "./expensesSlice";
 
-const Expense = ({ expense }) => {
+const Expense = ({ expense, currentExpenseID, setExpenseID }) => {
+  const { id, title, date, categoryId, amount } = expense;
   const dispatch = useDispatch();
-  const updatedExpense = {
-    title: "Updated",
-    amount: 750,
-    date: "2020-11-01",
-    categoryId: 1,
+
+  const handleDelete = () => {
+    if (currentExpenseID === id) {
+      console.log("OUI");
+      setExpenseID(null);
+    }
+    dispatch(deleteExpenseThunk(id));
   };
+
   return (
-    <div style={{ border: "1px black solid", margin: "20px", padding: "10px" }}>
-      <p>{expense?.title}</p>
-      <p>{expense?.amount}</p>
-      <p>{expense?.date}</p>
-      <button onClick={() => dispatch(deleteExpenseThunk(expense.id))}>
-        Delete
-      </button>
-      <button
-        onClick={() =>
-          dispatch(updateExpenseThunk({ id: expense.id, ...updatedExpense }))
-        }>
-        Update
-      </button>
-    </div>
+    <ListItem>
+      <ListItemText
+        primary={title}
+        secondary={categoryId ? categoryId + " match categ" : "Uncategorized"}
+      />
+      <ListItemText
+        primary={amount + " CAD"}
+        secondary={date}
+        style={{ textAlign: "right" }}
+      />
+      <ListItemIcon style={{ justifyContent: "center" }}>
+        <IconButton color='primary' onClick={() => setExpenseID(expense.id)}>
+          <EditIcon />
+        </IconButton>
+      </ListItemIcon>
+      <ListItemIcon style={{ justifyContent: "center" }}>
+        <IconButton color='error' onClick={handleDelete}>
+          <DeleteIcon />
+        </IconButton>
+      </ListItemIcon>
+    </ListItem>
   );
 };
 
