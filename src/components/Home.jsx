@@ -19,14 +19,16 @@ const Home = () => {
   });
 
   const handleSubmit = () => {
+    let isError = false;
     if (!state.title) {
       setError((error) => ({ ...error, title: "Enter an expense title" }));
-      return;
+      isError = true;
     }
     if (!state.amount || state.amount <= 0) {
       setError((error) => ({ ...error, amount: "Enter a valid amount" }));
-      return;
+      isError = true;
     }
+    if (isError) return;
     dispatch(createExpenseThunk(state));
     setState(emptyForm);
   };

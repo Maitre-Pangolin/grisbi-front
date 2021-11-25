@@ -13,3 +13,5 @@ export const getCurrentDateString = () =>
   });
 
 export const getCurrentMonthKey = () => new Date().toISOString().slice(0, 7);
+export const getMonthKeyFromDateString = (dateString) =>
+  new Date(dateString).toISOString().slice(0, 7);
