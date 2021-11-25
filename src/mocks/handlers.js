@@ -34,8 +34,9 @@ export const handlers = [
   rest.delete("/api/expenses/:id", (req, res, ctx) => {
     try {
       const { id } = req.params;
+      const expense = expenses.find((exp) => exp.id === id);
       expenses = expenses.filter((expense) => expense.id !== id);
-      return res(ctx.status(200), ctx.json(id));
+      return res(ctx.status(200), ctx.json(expense));
     } catch (error) {
       console.log(error);
       return res(ctx.status(500));

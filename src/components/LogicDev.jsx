@@ -49,7 +49,7 @@ const LogicDev = () => {
       ))}
       {Object.keys(totals).map((key) => (
         <h2 key={key}>
-          {getDateStringFromDateKey(key)}: {totals[key]}
+          {getDateStringFromDateKey(key)}: {totals[key].toFixed(2) || "-"}
         </h2>
       ))}
       <h2>{currentTotal || "No expenses"}</h2>

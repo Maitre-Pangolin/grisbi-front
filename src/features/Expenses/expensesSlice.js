@@ -7,7 +7,7 @@ import {
   fetchExpensesByMonth,
 } from "../../app/api";
 import { getMonthKeyFromDateString } from "../../utils";
-import { increaseTotal } from "../Totals/totalsSlice";
+import { increaseTotal, decreaseTotal } from "../Totals/totalsSlice";
 
 const initialState = {
   expenses: [
@@ -60,9 +60,14 @@ export const updateExpenseThunk = createAsyncThunk(
 
 export const deleteExpenseThunk = createAsyncThunk(
   "expenses/deleteExpense",
-  async (id) => {
+  async (id, thunkAPI) => {
+    console.log("In thunk");
     const response = await deleteExpenses(id);
-    return response.data;
+    console.log(response);
+    const key = getMonthKeyFromDateString(response.data.date);
+    const amount = response.data.amount;
+    thunkAPI.dispatch(decreaseTotal({ key, amount }));
+    return response.data.id;
   }
 );
 

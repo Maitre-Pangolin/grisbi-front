@@ -21,6 +21,10 @@ const TotalsSlice = createSlice({
         state[key] = amount;
       }
     },
+    decreaseTotal(state, action) {
+      const { key, amount } = action.payload;
+      if (key in state) state[key] -= amount;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchTotalsThunk.fulfilled, (state, action) => {
@@ -30,7 +34,7 @@ const TotalsSlice = createSlice({
 });
 
 export default TotalsSlice.reducer;
-export const { increaseTotal } = TotalsSlice.actions;
+export const { increaseTotal, decreaseTotal } = TotalsSlice.actions;
 
 export const selectMonthlyTotals = (state) => state.totals;
 export const selectCurrentMonthTotals = (state) => {
