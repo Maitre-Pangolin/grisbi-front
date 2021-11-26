@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   createExpenseThunk,
   selectExpenseByID,
+  updateExpenseThunk,
 } from "../features/Expenses/expensesSlice";
 
 const ExpenseForm = ({ expenseID, setExpenseID }) => {
@@ -18,8 +19,8 @@ const ExpenseForm = ({ expenseID, setExpenseID }) => {
   const expense = useSelector(selectExpenseByID(expenseID));
   const [formData, setFormData] = useState(emptyForm);
   useEffect(() => {
-    if (expense) setFormData(expense);
-    if (!expense) setFormData(emptyForm);
+    expense ? setFormData(expense) : setFormData(emptyForm);
+    setError({ title: "", amount: "" });
   }, [expense]);
 
   const [error, setError] = useState({
@@ -38,8 +39,18 @@ const ExpenseForm = ({ expenseID, setExpenseID }) => {
       isError = true;
     }
     if (isError) return;
-    dispatch(createExpenseThunk(formData));
+
+    expense
+      ? dispatch(updateExpenseThunk(formData))
+      : dispatch(createExpenseThunk(formData));
     setFormData(emptyForm);
+    setExpenseID(null);
+  };
+
+  const handleClear = () => {
+    if (expenseID) setExpenseID(null);
+    setFormData(emptyForm);
+    setError({ title: "", amount: "" });
   };
 
   const handleChange = ({ target }) => {
@@ -58,7 +69,7 @@ const ExpenseForm = ({ expenseID, setExpenseID }) => {
 
   return (
     <div className='home-form-container'>
-      <h1>Add Expense</h1>
+      <h1>{expense ? "Edit Expense" : "Add Expense"}</h1>
       <TextField
         id='expense-name'
         label='Expense Name'
@@ -104,7 +115,15 @@ const ExpenseForm = ({ expenseID, setExpenseID }) => {
         onChange={handleChange}></TextField>
 
       <Button variant='contained' size='large' onClick={handleSubmit}>
-        Add expense
+        {expense ? "Update Expense" : "Create Expense"}
+      </Button>
+      <Button
+        variant='contained'
+        size='large'
+        color='error'
+        disabled={!expense}
+        onClick={handleClear}>
+        Clear Form
       </Button>
     </div>
   );

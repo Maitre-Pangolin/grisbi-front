@@ -48,5 +48,5 @@ footer{
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: rgb(100, 148, 237);
+  background-color: rgba(96, 143, 231, 0.226);
 }
