@@ -16,7 +16,7 @@ function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchTotalsThunk());
-    dispatch(fetchExpensesByMonthThunk(getCurrentMonthKey()));
+    //dispatch(fetchExpensesByMonthThunk(getCurrentMonthKey()));
   }, [dispatch]);
 
   return (

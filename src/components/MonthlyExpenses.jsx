@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Expenses from "../features/Expenses/Expenses";
 import { Grid, Container, Box } from "@mui/material";
 import ExpenseForm from "./ExpenseForm";
@@ -8,12 +8,23 @@ import {
   selectTotalByKeyDate,
 } from "../features/Totals/totalsSlice";
 import { getCurrentMonthKey } from "../utils";
-import { selectKeyDate } from "../features/Expenses/expensesSlice";
+import {
+  fetchExpensesByMonthThunk,
+  selectKeyDate,
+} from "../features/Expenses/expensesSlice";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router";
 
 const MonthlyExpenses = () => {
+  const { keyDate } = useParams();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchExpensesByMonthThunk(keyDate));
+  }, [dispatch, keyDate]);
+
   const [expenseID, setExpenseID] = useState(null);
-  const keyDate = useSelector(selectKeyDate);
   const total = useSelector(selectTotalByKeyDate(keyDate));
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={4}>

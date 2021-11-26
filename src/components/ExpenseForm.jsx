@@ -121,7 +121,7 @@ const ExpenseForm = ({ expenseID, setExpenseID }) => {
         variant='contained'
         size='large'
         color='error'
-        disabled={!expense}
+        disabled={!(formData.title || formData.id || formData.amount)}
         onClick={handleClear}>
         Clear Form
       </Button>
