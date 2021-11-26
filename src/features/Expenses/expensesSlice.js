@@ -53,10 +53,21 @@ export const createExpenseThunk = createAsyncThunk(
 
 export const updateExpenseThunk = createAsyncThunk(
   "expenses/updateExpense",
-  async (expense, thunkAPI) => {
-    const response = await updateExpenses(expense);
-    const state = thunkAPI.getState();
-    console.log(state);
+  async (updatedExpense, thunkAPI) => {
+    const response = await updateExpenses(updatedExpense); // should be better to separate id from expense form sent data ...
+    const { expenses } = thunkAPI.getState();
+    const prevExpense = expenses.expenses.find(
+      ({ id }) => id === response.data.id
+    );
+    const prevKey = getMonthKeyFromDateString(prevExpense.date);
+    const updatedKey = getMonthKeyFromDateString(response.data.date);
+    thunkAPI.dispatch(
+      decreaseTotal({ key: prevKey, amount: prevExpense.amount })
+    );
+    thunkAPI.dispatch(
+      increaseTotal({ key: updatedKey, amount: response.data.amount })
+    );
+
     return response.data;
   }
 );
@@ -86,7 +97,8 @@ const expensesSlice = createSlice({
     });
 
     builder.addCase(createExpenseThunk.fulfilled, (state, action) => {
-      state.expenses.push(action.payload);
+      if (getMonthKeyFromDateString(action.payload.date) === state.keyDate)
+        state.expenses.push(action.payload);
     });
 
     builder.addCase(deleteExpenseThunk.fulfilled, (state, action) => {

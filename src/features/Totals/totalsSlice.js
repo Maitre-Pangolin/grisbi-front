@@ -42,3 +42,5 @@ export const selectCurrentMonthTotals = (state) => {
   const yearMonthKey = getCurrentMonthKey();
   return state.totals[yearMonthKey];
 };
+export const selectTotalByKeyDate = (keyDate) => (state) =>
+  state.totals[keyDate];
