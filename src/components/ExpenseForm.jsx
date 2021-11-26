@@ -69,7 +69,7 @@ const ExpenseForm = ({ expenseID, setExpenseID }) => {
 
   return (
     <div className='home-form-container'>
-      <h1>{expense ? "Edit Expense" : "Add Expense"}</h1>
+      <h2>{expense ? "Edit Expense" : "Add Expense"}</h2>
       <TextField
         id='expense-name'
         label='Expense Name'
