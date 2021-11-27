@@ -2,7 +2,7 @@ import axios from "axios";
 
 const expenses = "/api/expenses";
 const totals = "/api/totals";
-//const category = "/api/category";
+const categories = "/api/categories";
 
 export const fetchExpenses = () => axios.get(expenses);
 export const fetchExpensesByMonth = (yearMonth) =>
@@ -13,3 +13,9 @@ export const updateExpenses = (expense) =>
 export const deleteExpenses = (id) => axios.delete(`${expenses}/${id}`);
 
 export const fetchTotals = () => axios.get(totals);
+
+export const fetchCategories = () => axios.get(categories);
+export const createCategories = (category) => axios.post(categories, category);
+export const updateCategories = (id, category) =>
+  axios.get(categories, id, category);
+export const deleteCategories = (id) => axios.get(categories, id);

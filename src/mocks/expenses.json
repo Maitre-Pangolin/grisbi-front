@@ -3,29 +3,25 @@
     "title": "Rent",
     "amount": 750,
     "date":"2021-11-01",
-
-    "categoryId": 1
+    "categoryId": "27a2e3cd-b56c-4945-8635-84c5ab216847"
     },
     {"id":"b60825c4-f5db-454f-aacd-26715a09b05c",
         "title": "Phone",
         "amount": 54.25,
         "date":"2021-11-04",
-
-        "categoryId": 2
+        "categoryId": "27a2e3cd-b56c-4945-8635-84c5ab216847"
     },
     {"id":"4c85b979-d987-4ce5-a288-77e1087c1845",
         "title": "Groceries",
         "amount": 31.56,
         "date":"2021-11-05",
-
-        "categoryId": 2
+        "categoryId": "04aa3b0b-65fd-46e2-8304-a3eee0445c11"
     },
     {"id":"4c85b979-d986-4ce5-a288-77e1087c1845",
         "title": "Drinks",
         "amount": 54.23,
         "date":"2021-11-12",
-
-        "categoryId": 4
+        "categoryId": "04aa3b0b-65fd-46e2-8304-a3eee0445c18"
     },
 
 

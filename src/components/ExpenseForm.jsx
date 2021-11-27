@@ -6,6 +6,7 @@ import {
   selectExpenseByID,
   updateExpenseThunk,
 } from "../features/Expenses/expensesSlice";
+import { selectAllCategories } from "../features/Categories/categorySlice";
 
 const ExpenseForm = ({ expenseID, setExpenseID }) => {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ const ExpenseForm = ({ expenseID, setExpenseID }) => {
   };
   const expense = useSelector(selectExpenseByID(expenseID));
   const [formData, setFormData] = useState(emptyForm);
+  const categories = useSelector(selectAllCategories);
   useEffect(() => {
     expense ? setFormData(expense) : setFormData(emptyForm);
     setError({ title: "", amount: "" });
@@ -99,8 +101,11 @@ const ExpenseForm = ({ expenseID, setExpenseID }) => {
         value={formData.categoryId}
         onChange={handleChange}
         variant='standard'>
-        <MenuItem value={10}>Ten</MenuItem>
-        <MenuItem value={20}>Twenty</MenuItem>
+        {categories.map((category, index) => (
+          <MenuItem key={index} value={category.id}>
+            {category.name}
+          </MenuItem>
+        ))}
       </TextField>
       <TextField
         id='outlined-select-currency'

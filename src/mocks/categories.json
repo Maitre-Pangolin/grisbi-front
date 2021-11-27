@@ -1,14 +1,42 @@
 [
-    {"id":1,
-     "name":"Home"
+    {"id":"27a2e3cd-b56c-4945-8635-84c5ab216847",
+     "name":"Housing & Utilities",
+     "iconIndex":1
     },
-    {"id":2,
-    "name": "Groceries"
+    {"id":"a76d15c2-bb91-4fbf-8cf9-d4c5854b7044",
+    "name": "Transportation",
+    "iconIndex":2
     },
-    {"id":3,
-    "name": "Drinks"
+    {"id":"04aa3b0b-65fd-46e2-8304-a3eee0445c11",
+    "name": "Groceries",
+    "iconIndex":3
     },
-    {"id":4,
-    "name": "Sport"
+    {"id":"04aa3b0b-65fd-46e2-8304-a3eee0445c12",
+    "name": "Restaurant & Take-Out",
+    "iconIndex":4
+    },
+    {"id":"04aa3b0b-65fd-46e2-8304-a3eee0445c13",
+    "name": "Medical & Healthcare",
+    "iconIndex":5
+    },
+    {"id":"04aa3b0b-65fd-46e2-8304-a3eee0445c14",
+    "name": "Sport",
+    "iconIndex":6
+    },
+    {"id":"04aa3b0b-65fd-46e2-8304-a3eee0445c15",
+    "name": "Recreation & Entertainement",
+    "iconIndex":7
+    },
+    {"id":"04aa3b0b-65fd-46e2-8304-a3eee0445c16",
+    "name": "Games",
+    "iconIndex":8
+    },
+    {"id":"04aa3b0b-65fd-46e2-8304-a3eee0445c17",
+    "name": "Clothing",
+    "iconIndex":9
+    },
+    {"id":"04aa3b0b-65fd-46e2-8304-a3eee0445c18",
+    "name": "Drinks",
+    "iconIndex":10
     }
 ]

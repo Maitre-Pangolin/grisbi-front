@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   ListItemIcon,
   ListItemText,
@@ -9,13 +9,17 @@ import {
   Avatar,
   Divider,
 } from "@mui/material";
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { deleteExpenseThunk } from "./expensesSlice";
+import { selectCategoryById } from "../Categories/categorySlice";
+
+import { categoriesIconBank } from "../Categories/categorySlice";
 
 const Expense = ({ expense, currentExpenseID, setExpenseID }) => {
   const { id, title, date, categoryId, amount } = expense;
+  const category = useSelector(selectCategoryById(categoryId));
   const dispatch = useDispatch();
 
   const handleDelete = () => {
@@ -34,14 +38,12 @@ const Expense = ({ expense, currentExpenseID, setExpenseID }) => {
           : null
       }>
       <ListItemAvatar>
-        <Avatar>
-          <AttachMoneyIcon />
-        </Avatar>
+        <Avatar>{categoriesIconBank[category?.iconIndex || 0] || null}</Avatar>
       </ListItemAvatar>
       <Divider orientation='vertical' variant='fullWidth' flexItem />
       <ListItemText
         primary={title}
-        secondary={categoryId ? categoryId + " match categ" : "Uncategorized"}
+        secondary={category?.name || "Miscelleanous"}
         sx={{ marginLeft: "20px" }}
       />
       <ListItemText

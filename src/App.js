@@ -2,21 +2,19 @@ import React, { useEffect } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { fetchExpensesByMonthThunk } from "./features/Expenses/expensesSlice";
-import LogicDev from "./components/LogicDev";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import Footer from "./components/Footer";
 import MonthlyExpenses from "./components/MonthlyExpenses";
 
 import { fetchTotalsThunk } from "./features/Totals/totalsSlice";
-import { getCurrentMonthKey } from "./utils";
+import { fetchCategoriesThunk } from "./features/Categories/categorySlice";
 
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchTotalsThunk());
-    //dispatch(fetchExpensesByMonthThunk(getCurrentMonthKey()));
+    dispatch(fetchCategoriesThunk());
   }, [dispatch]);
 
   return (
@@ -26,7 +24,6 @@ function App() {
         <main>
           <Routes>
             <Route path='/' element={<Home />} />
-            <Route path='/dev' element={<LogicDev />} />
             <Route path='/months/:keyDate' element={<MonthlyExpenses />} />
             <Route path='*' element={<h1>Not found</h1>}></Route>
           </Routes>

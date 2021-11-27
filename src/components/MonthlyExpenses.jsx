@@ -19,8 +19,8 @@ const MonthlyExpenses = () => {
   const [expenseID, setExpenseID] = useState(null);
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={4}>
+    <Box sx={{ flexGrow: 1, flexWrap: "wrap-reverse" }}>
+      <Grid container spacing={4} flexWrap='wrap-reverse'>
         <Grid item xs={12} md={8}>
           <Expenses setExpenseID={setExpenseID} expenseID={expenseID} />
         </Grid>
